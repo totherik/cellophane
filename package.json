@@ -1,6 +1,6 @@
 {
   "name": "cellophane",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Transparent express app mounting.",
   "main": "index.js",
   "directories": {
