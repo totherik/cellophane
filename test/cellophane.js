@@ -188,4 +188,37 @@ test('cellophane', function (t) {
     });
 
 
+    t.test('existing app and capturing events', function (t) {
+        var child, parent;
+
+        child = express();
+        child.on('howdy', function (doody) {
+            t.equal(doody, 'doody');
+            t.end();
+        });
+
+        parent = express();
+        parent.use(cellophane(child));
+        setImmediate(function () {
+            parent.emit('howdy', 'doody');
+        });
+    });
+
+
+    t.test('existing app and bubbling events', function (t) {
+        var child, parent;
+
+        child = express();
+        setImmediate(function () {
+            child.emit('howdy', 'doody');
+        });
+
+        parent = express();
+        parent.use(cellophane(child));
+        parent.on('howdy', function (doody) {
+            t.equal(doody, 'doody');
+            t.end();
+        });
+    });
+
 });
