@@ -27,15 +27,15 @@ function echo(src, dest) {
     return function handler(event/*, listener*/) {
         var emit;
 
-        function onevent() {
-            src.removeListener(event, onevent);
+        function replay() {
+            src.removeListener(event, replay);
             emit.apply(null, arguments);
-            src.on(event, onevent);
+            src.on(event, replay);
         }
 
         if (event !== 'mount' && !events.hasOwnProperty(event)) {
             emit = dest.emit.bind(dest, event);
-            src.on(event, (events[event] = onevent));
+            src.on(event, (events[event] = replay));
         }
     };
 }
@@ -49,9 +49,11 @@ function bidirect(child) {
         capture = echo(parent, child);
 
         child.settings = Object.create(parent.settings);
+
         retroactivate(parent._events, bubble);
-        retroactivate(child._events, capture);
         parent.on('newListener', bubble);
+
+        retroactivate(child._events, capture);
         child.on('newListener', capture);
     };
 }
