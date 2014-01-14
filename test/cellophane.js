@@ -42,7 +42,7 @@ test('cellophane', function (t) {
         parent = express();
         parent.use(child);
         parent.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
     });
@@ -60,11 +60,11 @@ test('cellophane', function (t) {
         parent = express();
         parent.use(child);
         parent.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
         });
 
         parent.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
     });
@@ -80,7 +80,7 @@ test('cellophane', function (t) {
 
         parent = express();
         parent.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
         parent.use(child);
@@ -98,11 +98,11 @@ test('cellophane', function (t) {
 
         parent = express();
         parent.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
         });
 
         parent.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
 
@@ -121,7 +121,7 @@ test('cellophane', function (t) {
         });
 
         child.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
     });
@@ -139,11 +139,11 @@ test('cellophane', function (t) {
         });
 
         child.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
         });
 
         child.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
     });
@@ -154,7 +154,7 @@ test('cellophane', function (t) {
 
         child = cellophane();
         child.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
 
@@ -172,11 +172,11 @@ test('cellophane', function (t) {
 
         child = cellophane();
         child.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
         });
 
         child.on('howdy', function (doody) {
-            t.ok(doody);
+            t.equal(doody, 'doody');
             t.end();
         });
 
