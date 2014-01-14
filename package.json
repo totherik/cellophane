@@ -1,0 +1,22 @@
+{
+  "name": "cellophane",
+  "version": "0.0.0",
+  "description": "Transparent express app mounting.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/totherik/cellophane.git"
+  },
+  "keywords": [
+    "express",
+    "mount"
+  ],
+  "author": "Erik Toth <totherik@gmail.com>",
+  "license": "BSD"
+}
