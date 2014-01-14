@@ -20,7 +20,7 @@
     "mount"
   ],
   "author": "Erik Toth <totherik@gmail.com>",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "express": "~3.4.8",
     "tape": "~2.3.2",
