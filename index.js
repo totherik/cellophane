@@ -1,7 +1,6 @@
 'use strict';
 
-var express = require('express'),
-    slice = Function.prototype.call.bind(Array.prototype.slice);
+var express = require('express');
 
 
 function retroactivate(events, replayer) {
