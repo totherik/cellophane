@@ -30,6 +30,31 @@ test('cellophane', function (t) {
         t.end();
     });
 
+    t.test('engines', function (t) {
+        var child, parent;
+
+        function render() {
+            // noop
+        }
+
+        child = cellophane();
+        child.on('mount', function (mommy) {
+            t.strictEqual(parent, mommy);
+            t.strictEqual(child.engines['.html'], parent.engines['.html']);
+            t.strictEqual(child.engines['.html'], render);
+
+            // Child should automatically pick up any changes to parent settings.
+            parent.engine('ejs', render);
+            t.strictEqual(child.engines['.ejs'], parent.engines['.ejs']);
+            t.strictEqual(child.engines['.ejs'], render);
+        });
+
+        parent = express();
+        parent.engine('html', render);
+        parent.use(child);
+        t.end();
+    });
+
 
     t.test('bubble new event', function (t) {
         var child, parent;

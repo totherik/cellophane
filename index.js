@@ -67,6 +67,7 @@ function bidirect(child) {
         capture = echo(parent, child);
 
         child.settings = Object.create(parent.settings);
+        child.engines = Object.create(parent.engines);
 
         retroactivate(parent._events, bubble);
         parent.on('newListener', bubble);
