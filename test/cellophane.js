@@ -221,4 +221,51 @@ test('cellophane', function (t) {
         });
     });
 
+
+    t.test('all parent', function (t) {
+        var child, parent;
+        t.plan(2);
+
+        function assert(doody) {
+            t.equal(doody, 'doody');
+        }
+
+        child = cellophane();
+        child.name1 = 'child';
+
+        parent = express();
+        parent.name1 = 'parent';
+
+        parent.on('howdy', assert);
+        parent.use(child);
+        parent.on('howdy', assert);
+
+        setImmediate(function () {
+            parent.emit('howdy', 'doody');
+            t.end();
+        });
+    });
+
+
+    t.test('all child', function (t) {
+        var child, parent;
+        t.plan(2);
+
+        function assert(doody) {
+            t.equal(doody, 'doody');
+        }
+
+        child = cellophane();
+        parent = express();
+
+        child.on('howdy', assert);
+        parent.use(child);
+        child.on('howdy', assert);
+
+        setImmediate(function () {
+            child.emit('howdy', 'doody');
+            t.end();
+        });
+    });
+
 });

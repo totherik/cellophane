@@ -20,21 +20,40 @@ function retroactivate(events, replayer) {
 }
 
 
+
+function find(arr, predicate) {
+    var match = undefined;
+    arr.some(function test(item) {
+        return predicate(item) && (match = item);
+    });
+    return match;
+}
+
+
 function echo(src, dest) {
     var events = {};
 
-    return function handler(event/*, listener*/) {
-        var emit;
+    function stoppable(fn) {
+        return fn.stopPropagation === true;
+    }
+
+    function propagate(event, emitter) {
+        var emit = emitter.emit.bind(emitter, event);
 
         function replay() {
-            src.removeListener(event, replay);
+            var play = find(emitter.listeners(event), stoppable);
+            play && emitter.removeListener(event, play);
             emit.apply(null, arguments);
-            src.on(event, replay);
+            play && emitter.addListener(event, play);
         }
 
+        replay.stopPropagation = true;
+        return replay;
+    }
+
+    return function handler(event/*, listener*/) {
         if (event !== 'mount' && !events.hasOwnProperty(event)) {
-            emit = dest.emit.bind(dest, event);
-            src.on(event, (events[event] = replay));
+            src.on(event, (events[event] = propagate(event, dest)));
         }
     };
 }
